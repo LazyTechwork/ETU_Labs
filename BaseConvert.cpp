@@ -3,6 +3,7 @@
 const string BaseConvert::ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 long long BaseConvert::dec(string n, unsigned short base) {
+    transform(n.begin(), n.end(), n.begin(), [](unsigned char c) { return std::toupper(c); });
     const unsigned long long index = n.size() - 1;
     long long result = 0;
     for (int i = 0; i < n.size(); ++i) {
