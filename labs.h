@@ -49,6 +49,7 @@ double atg(double x);
 #define ETU_LAB2_H
 
 #include <iostream>
+#include <iterator>
 
 int lab2();
 
