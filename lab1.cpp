@@ -13,7 +13,7 @@ unsigned int resolve_quarter(double angle) {
     return quarter;
 }
 
-unsigned long long fact(unsigned long long int x) {
+unsigned long long fact(unsigned long long x) {
     if (factorials.size() - 1 >= x) {
         return factorials[x];
     }
@@ -49,29 +49,37 @@ double sqrt(double x) {
     return result[19];
 }
 
-double sin(double x) {
+double convert_angle(double x) {
+    x -= x > PI * 2 ? std::floor(x / (PI * 2)) * (PI * 2) : 0;
     const unsigned int quarter = resolve_quarter(x);
-    x /= x > PI * 2 ? quarter * (PI / 2) : 1;
-    const bool invert = quarter == 3 || quarter == 4;
     if (quarter == 2) {
         x = PI - x;
     } else if (quarter == 3) {
-
+        x -= PI;
+    } else if (quarter == 4) {
+        x = 2.0 * PI - x;
     }
+    return x;
+}
+
+double sin(double x) {
+    const unsigned int quarter = resolve_quarter(x);
+    x = convert_angle(x);
     double result = x;
     for (int i = 1; i <= 20; ++i) {
         result += (pow(-1, i) * pow(x, 2 * i + 1)) / fact(2 * i + 1);
     }
-    return result;
+    return result * (quarter == 3 || quarter == 4 ? -1 : 1);
 }
 
 double cos(double x) {
-    x /= x > PI * 2 ? resolve_quarter(x) * (PI / 2) : 1;
+    const unsigned int quarter = resolve_quarter(x);
+    x = convert_angle(x);
     double result = 1;
     for (int i = 1; i <= 20; ++i) {
         result += (pow(-1, i) * pow(x, 2 * i)) / fact(2 * i);
     }
-    return result;
+    return result * (quarter == 2 || quarter == 3 ? -1 : 1);
 }
 
 double atg(double x) {
@@ -83,9 +91,12 @@ double atg(double x) {
 }
 
 int lab1() {
-//    int a, b;
-//    cin >> a >> b;
-//    cout << pow(sin(a + pow(b, 2)), 2) * sqrt(e_x(pow(a, 2) - 9.4) / pow(a - b, 3)) << endl;
-    std::cout << resolve_quarter((3 * PI) / 2);
+    int a, b;
+    std::cin >> a >> b;
+    std::cout<<"Вычисленное значение:"<<std::endl;
+    std::cout << pow(sin(a + pow(b, 3)), 2) * sqrt(e_x(pow(a, 2) - 9.4) / pow(a + b, 3)) << std::endl;
+
+    std::cout<<"Контрольное  значение:"<<std::endl;
+    std::cout << std::pow(std::sin(a + std::pow(b, 3)), 2) * std::sqrt(std::exp(std::pow(a, 2) - 9.4) / std::pow(a + b, 3)) << std::endl;
     return 0;
 }

@@ -2,5 +2,6 @@
 
 int main() {
     system("chcp 65001");
-    return lab2();
+    std::cout << std::fixed;
+    return lab1();
 }
