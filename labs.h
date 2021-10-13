@@ -43,3 +43,13 @@ double cos(double x);
 double atg(double x);
 
 #endif
+
+
+#ifndef ETU_LAB2_H
+#define ETU_LAB2_H
+
+#include <iostream>
+
+int lab2();
+
+#endif

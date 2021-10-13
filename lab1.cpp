@@ -1,4 +1,4 @@
-#include "lab1.h"
+#include "labs.h"
 
 std::vector<unsigned long long> factorials = {1};
 
