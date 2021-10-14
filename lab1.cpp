@@ -52,14 +52,14 @@ double sqrt(double x) {
 double convert_angle(double x) {
     x -= x > PI * 2 ? std::floor(x / (PI * 2)) * (PI * 2) : 0;
     const unsigned int quarter = resolve_quarter(x);
-    if (quarter == 2) {
-        x = PI - x;
-    } else if (quarter == 3) {
-        x -= PI;
-    } else if (quarter == 4) {
-        x = 2.0 * PI - x;
-    }
-    return x;
+    if (quarter == 1)
+        return x;
+    if (quarter == 2)
+        return PI - x;
+    if (quarter == 3)
+        return x - PI;
+    if (quarter == 4)
+        return 2.0 * PI - x;
 }
 
 double sin(double x) {
