@@ -54,3 +54,13 @@ double atg(double x);
 int lab2();
 
 #endif
+
+
+#ifndef ETU_LAB3_H
+#define ETU_LAB3_H
+
+#include <bits/stdc++.h>
+
+int lab3();
+
+#endif

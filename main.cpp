@@ -91,6 +91,5 @@ int main() {
     std::cout << std::fixed;
     freopen("C:\\Users\\Ivan\\CLionProjects\\ETU\\input.txt", "r", stdin);
     freopen("C:\\Users\\Ivan\\CLionProjects\\ETU\\output.txt", "w+", stdout);
-
-    return lab2();
+    return lab3();
 }
