@@ -52,29 +52,24 @@ namespace console {
         std::cout << "|" + std::string(longestString + 6, ' ') + "|\n";
         for (const auto &output: strings) {
             int strlen = utf8_strlen(output.str);
-            std::string paddingLeft = std::string((longestString - strlen) / 2, ' ');
-            std::string paddingRight = std::string(longestString - strlen, ' ');
+            int paddingLeft = 0, paddingRight = 0;
             switch (output.justify) {
                 case Justification::LEFT:
-                    paddingLeft = "";
-                    paddingRight = std::string(longestString - strlen, ' ');
+                    paddingRight = longestString - strlen;
                     break;
                 case Justification::RIGHT:
-                    paddingRight = "";
-                    paddingLeft = std::string(longestString - strlen, ' ');
+                    paddingLeft = longestString - strlen;
                     break;
                 case Justification::CENTER:
-                    paddingLeft = std::string((longestString - strlen) / 2, ' ');
-                    paddingRight = paddingLeft +
-                                   (longestString != strlen && (longestString - strlen) / 2 * 2 - longestString ? " "
-                                                                                                                : "");
+                    paddingLeft = (longestString - strlen) / 2;
+                    paddingRight = longestString - paddingLeft - strlen;
                     break;
             }
             std::string line = std::string();
             line.append("|   ");
-            line.append(paddingLeft);
+            line.append(std::string(paddingLeft, ' '));
             line.append(output.str);
-            line.append(paddingRight);
+            line.append(std::string(paddingRight, ' '));
             line.append("   |\n");
             SetColor(output.color, output.bg);
             std::cout << line;
