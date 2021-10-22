@@ -64,3 +64,14 @@ int lab2();
 int lab3();
 
 #endif
+
+
+#ifndef ETU_LAB4_H
+#define ETU_LAB4_H
+
+#include <bits/stdc++.h>
+#include "ConsoleInteractor.h"
+
+int lab4();
+
+#endif

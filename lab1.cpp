@@ -60,6 +60,7 @@ double convert_angle(double x) {
         return x - PI;
     if (quarter == 4)
         return 2.0 * PI - x;
+    return 0;
 }
 
 double sin(double x) {

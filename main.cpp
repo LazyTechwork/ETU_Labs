@@ -87,9 +87,12 @@ void elena_task1() {
 
 
 int main() {
+    setlocale(0, "ru_RU.utf8");
     system("chcp 65001");
     std::cout << std::fixed;
-    freopen("C:\\Users\\Ivan\\CLionProjects\\ETU\\input.txt", "r", stdin);
-    freopen("C:\\Users\\Ivan\\CLionProjects\\ETU\\output.txt", "w+", stdout);
-    return lab3();
+//    freopen("C:\\Users\\Ivan\\CLionProjects\\ETU\\input.txt", "r", stdin);
+//    freopen("C:\\Users\\Ivan\\CLionProjects\\ETU\\output.txt", "w+", stdout);
+    lab4();
+    _getch();
+    return 0;
 }
