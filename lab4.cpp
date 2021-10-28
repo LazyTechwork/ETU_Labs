@@ -56,7 +56,7 @@ struct FlightList {
         return result;
     }
 
-    bool removeIndex(unsigned index) const {
+    bool removeIndex(unsigned index) {
         if (isEmpty()) return false;
         Flight *p = first;
         Flight *pp = nullptr;
@@ -65,7 +65,10 @@ struct FlightList {
             p = p->next;
             if (!p) return false;
         }
-        pp->next = p->next;
+        if (!pp)
+            first = p->next;
+        else
+            pp->next = p->next;
         delete p;
         return true;
     }
