@@ -8,6 +8,8 @@
 #include <string>
 #include <windows.h>
 #include <cmath>
+#include <regex>
+#define EOL 13
 
 namespace console {
 
@@ -42,6 +44,8 @@ namespace console {
 
         white
     };
+
+    const std::regex dateRegex("(\\d{2}\\.\\d{2}\\.\\d{4})");
     struct FormattedString {
         std::string str;
         Justification justify = Justification::LEFT;
@@ -53,6 +57,9 @@ namespace console {
 
     void renderStrings(const std::vector<FormattedString> &strings);
     void renderStrings(const std::vector<std::string> &strings);
+
+    void readNumbers(int &i);
+    void readDate(std::string &date);
 
     void clearConsole();
 

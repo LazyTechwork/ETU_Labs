@@ -7,7 +7,7 @@ namespace console {
         return (Color) ((csbi.wAttributes & 0xF0) >> 4);
     }
 
-    Color GetForegroundColor() {
+    __attribute__((unused)) Color GetForegroundColor() {
         CONSOLE_SCREEN_BUFFER_INFO csbi;
         GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
         return (Color) (csbi.wAttributes & 0x0F);
@@ -17,7 +17,7 @@ namespace console {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), (int) (bg << 4) | (int) fg);
     }
 
-    void SetColor(Color fg) {
+    __attribute__((unused)) void SetColor(Color fg) {
         SetColor(fg, GetBackgroundColor());
     }
 
@@ -27,7 +27,7 @@ namespace console {
 
     int utf8_strlen(const std::string &str) {
         int c, i, ix, q;
-        for (q = 0, i = 0, ix = str.length(); i < ix; i++, q++) {
+        for (q = 0, i = 0, ix = (int) str.length(); i < ix; i++, q++) {
             c = (unsigned char) str[i];
             if (c >= 0 && c <= 127) i += 0;
             else if ((c & 0xE0) == 0xC0) i += 1;
@@ -38,6 +38,38 @@ namespace console {
             else return 0;//invalid utf8
         }
         return q;
+    }
+
+    void readNumbers(int &i) {
+        i = 0;
+        while (char ch = (char) _getch()) {
+            if (ch == EOF || ch == EOL) {
+                std::cout << std::endl;
+                break;
+            }
+            std::string si = std::to_string(i);
+            if (ch >= '0' && ch <= '9' || (!si.empty() && ch == '\b')) {
+                if (ch == '\b') {
+                    si = si.substr(0, si.size() - 1);
+                    i = !si.empty() ? std::stoi(si) : 0;
+                } else i = std::stoi(si + ch);
+                std::cout << ch;
+            }
+        }
+    }
+
+    void readDate(std::string &date) {
+        while (char ch = (char) _getch()) {
+            if (ch == EOF || ch == EOL) {
+                std::cout << std::endl;
+                break;
+            }
+            if (ch >= '0' && ch <= '9' || ch == '.' || (!date.empty() && ch == '\b')) {
+                if (ch == '\b') date = date.substr(0, date.size() - 1);
+                else date += ch;
+                std::cout << ch;
+            }
+        }
     }
 
     void renderStrings(const std::vector<FormattedString> &strings) {
@@ -87,9 +119,10 @@ namespace console {
     }
 
     void Interactor::renderMenu() {
-        std::vector<std::string> output{};
+        std::vector <FormattedString> output{{" === " + menuName + " === ", Justification::CENTER}, {""}};
+        output.reserve(menu.size() + 1);
         for (const auto &item: menu)
-            output.push_back(std::string(1, (char) item.key) + " > " + item.name);
+            output.push_back({std::string(1, (char) item.key) + " > " + item.name});
         renderStrings(output);
     }
 
