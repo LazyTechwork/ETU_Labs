@@ -1,8 +1,6 @@
 #include "labs.h"
-#include "algorithm"
 
 using namespace std;
-
 
 int main() {
     setlocale(0, "ru_RU.utf8");
@@ -10,7 +8,7 @@ int main() {
     std::cout << std::fixed;
 //    freopen("C:\\Users\\Ivan\\CLionProjects\\ETU\\input.txt", "r", stdin);
 //    freopen("C:\\Users\\Ivan\\CLionProjects\\ETU\\output.txt", "w+", stdout);
-    lab4();
+    lab5();
     _getch();
     return 0;
 }

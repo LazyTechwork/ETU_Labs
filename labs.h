@@ -75,3 +75,12 @@ int lab3();
 int lab4();
 
 #endif
+#ifndef ETU_LAB5_H
+#define ETU_LAB5_H
+
+#include <bits/stdc++.h>
+#include <windows.h>
+
+int lab5();
+
+#endif

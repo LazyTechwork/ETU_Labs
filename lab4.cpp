@@ -5,6 +5,7 @@
 #define CTRL(c) ((c) & 037)
 
 #define CenteredText console::Justification::CENTER
+#define SAVEFILE R"(C:\Users\Ivan\CLionProjects\ETU\flights.dat)"
 using FormattedStrings = std::vector<console::FormattedString>;
 
 struct Flight {
@@ -85,7 +86,7 @@ struct FlightList {
 };
 
 void save(FlightList goods) {
-    std::ofstream file(R"(C:\Users\Ivan\CLionProjects\ETU\goods.dat)");
+    std::ofstream file(SAVEFILE);
     std::vector<Flight> list = goods.all();
     file << list.size() << std::endl;
     for (const auto &item: list) {
@@ -100,7 +101,7 @@ void save(FlightList goods) {
 }
 
 FlightList read() {
-    std::ifstream file(R"(C:\Users\Ivan\CLionProjects\ETU\goods.dat)");
+    std::ifstream file(SAVEFILE);
     FlightList goods;
     if (file.fail())
         return goods;
