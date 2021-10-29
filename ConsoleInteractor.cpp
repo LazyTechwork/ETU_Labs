@@ -52,8 +52,11 @@ namespace console {
                 if (ch == '\b') {
                     si = si.substr(0, si.size() - 1);
                     i = !si.empty() ? std::stoi(si) : 0;
-                } else i = std::stoi(si + ch);
-                std::cout << ch;
+                    std::cout << "\b \b";
+                } else {
+                    i = std::stoi(si + ch);
+                    std::cout << ch;
+                }
             }
         }
     }
@@ -65,9 +68,13 @@ namespace console {
                 break;
             }
             if (ch >= '0' && ch <= '9' || ch == '.' || (!date.empty() && ch == '\b')) {
-                if (ch == '\b') date = date.substr(0, date.size() - 1);
-                else date += ch;
-                std::cout << ch;
+                if (ch == '\b') {
+                    date = date.substr(0, date.size() - 1);
+                    std::cout << "\b \b";
+                } else {
+                    date += ch;
+                    std::cout << ch;
+                }
             }
         }
     }
@@ -119,7 +126,8 @@ namespace console {
     }
 
     void Interactor::renderMenu() {
-        std::vector <FormattedString> output{{" === " + menuName + " === ", Justification::CENTER}, {""}};
+        std::vector<FormattedString> output{{" === " + menuName + " === ", Justification::CENTER},
+                                            {""}};
         output.reserve(menu.size() + 1);
         for (const auto &item: menu)
             output.push_back({std::string(1, (char) item.key) + " > " + item.name});
