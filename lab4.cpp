@@ -22,6 +22,16 @@ struct Flight {
                                                                           arrival_point(std::move(arrivalPoint)),
                                                                           date(std::move(date)), duration(duration),
                                                                           price(price), next(nullptr) {}
+
+    std::string formattedDuration() const {
+        const unsigned hours = duration / 60;
+        const unsigned minutes = duration - hours * 60;
+        return std::to_string(hours) + " ч. " + std::to_string(minutes) + " м.";
+    }
+
+    std::string messaging() const {
+        return departure_point + " >> " + arrival_point;
+    }
 };
 
 struct FlightList {
@@ -125,11 +135,11 @@ FormattedStrings formattedFlightInfo(const Flight &flight,
                                      const FormattedStrings &top,
                                      const FormattedStrings &bottom) {
     FormattedStrings message{
-            {"Номер рейса: " + flight.flight_no,                                     CenteredText},
-            {"Сообщение: " + flight.departure_point + " >> " + flight.arrival_point, CenteredText},
-            {"Дата: " + flight.date,                                                 CenteredText},
-            {"Длительность: " + std::to_string(flight.duration),                     CenteredText},
-            {"Стоимость: " + std::to_string(flight.price),                           CenteredText},
+            {"Номер рейса: " + flight.flight_no,                     CenteredText},
+            {"Сообщение: " + flight.messaging(),                     CenteredText},
+            {"Дата: " + flight.date,                                 CenteredText},
+            {"Длительность: " + flight.formattedDuration(),          CenteredText},
+            {"Стоимость: " + std::to_string(flight.price) + " руб.", CenteredText},
     };
 
     FormattedStrings finale;
