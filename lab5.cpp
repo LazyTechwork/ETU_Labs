@@ -3,7 +3,6 @@
 const auto STD_HANDLE = GetStdHandle(STD_OUTPUT_HANDLE);
 #define IsKeyPressed(key) (GetKeyState(key) & 0x8000)
 
-
 void setCursorPosition(int x, int y) {
     std::cout.flush();
     COORD coord = {(SHORT) x, (SHORT) y};
@@ -57,6 +56,13 @@ bool changeSpeed(unsigned *speed, int diff) {
     return true;
 }
 
+bool changeChance(float *chance, float diff) {
+    if (*chance + diff < 0 || *chance + diff > 1)
+        return false;
+    *chance += diff;
+    return true;
+}
+
 int lab5() {
 //    Variables
     unsigned speed = 500;
@@ -68,7 +74,7 @@ int lab5() {
     RECT r;
     GetWindowRect(console, &r);
 
-    MoveWindow(console, r.left, r.top - 10, 1280, 720, TRUE);
+    MoveWindow(console, r.left, r.top - 25, 1280, 720, TRUE);
     if (!GetConsoleScreenBufferInfo(STD_HANDLE, &csbi))
         return -1;
     int consoleWidth = csbi.srWindow.Right - csbi.srWindow.Left, consoleHeight =
@@ -103,12 +109,16 @@ int lab5() {
         } else if (IsKeyPressed(VK_DOWN)) {
             if (changeSpeed(&speed, -1))
                 renderInfobox(speed, chance);
-        }
-
-
-        if (IsKeyPressed(VK_ESCAPE)) {
+        } else if (IsKeyPressed(VK_RIGHT)) {
+            if (changeChance(&chance, 0.01))
+                renderInfobox(speed, chance);
+        } else if (IsKeyPressed(VK_LEFT)) {
+            if (changeChance(&chance, -0.01))
+                renderInfobox(speed, chance);
+        } else if (IsKeyPressed(VK_ESCAPE)) {
             exit(0);
         }
+        Sleep(100);
     }
 
     return 0;
