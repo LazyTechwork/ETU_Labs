@@ -4,7 +4,7 @@
 
 #define CTRL(c) ((c) & 037)
 
-#define CenteredText console::Justification::CENTER
+#define CenteredText console::  Justification::CENTER
 #define SAVEFILE R"(C:\Users\Ivan\CLionProjects\ETU\flights.dat)"
 using FormattedStrings = std::vector<console::FormattedString>;
 

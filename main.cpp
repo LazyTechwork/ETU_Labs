@@ -9,6 +9,5 @@ int main() {
 //    freopen("C:\\Users\\Ivan\\CLionProjects\\ETU\\input.txt", "r", stdin);
 //    freopen("C:\\Users\\Ivan\\CLionProjects\\ETU\\output.txt", "w+", stdout);
     lab5();
-    _getch();
     return 0;
 }
